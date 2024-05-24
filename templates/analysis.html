@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Data Analysis</title>
+    <style>
+        body {
+            background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),url("/static/img/new.jpg");
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: white; /* Set default text color to white */
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+
+        h1, h2 {
+            color: white; /* Set heading text color to white */
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            color: white; /* Set table text color to white */
+        }
+
+        th {
+            background-color: #555; /* Darken table header background to ensure text is readable */
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        ul li {
+            background: rgba(255, 255, 255, 0.2); /* Slightly transparent background for list items */
+            margin: 5px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            color: white; /* Set list item text color to white */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Data Analysis for {{ filename }}</h1>
+        <h2>Shape</h2>
+        <p>{{ analysis['shape'] }}</p>
+
+        <h2>Columns</h2>
+        <ul>
+            {% for column in analysis['columns'] %}
+                <li>{{ column }}</li>
+            {% endfor %}
+        </ul>
+
+        <h2>Head</h2>
+        {{ analysis['head']|safe }}
+
+        <h2>Summary Statistics</h2>
+        {{ analysis['describe']|safe }}
+
+        <h2>Missing Values</h2>
+        <ul>
+            {% for key, value in analysis['null_values'].items() %}
+                <li>{{ key }}: {{ value }}</li>
+            {% endfor %}
+        </ul>
+
+        <h2>Data Types</h2>
+        <ul>
+            {% for key, value in analysis['dtypes'].items() %}
+                <li>{{ key }}: {{ value }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
